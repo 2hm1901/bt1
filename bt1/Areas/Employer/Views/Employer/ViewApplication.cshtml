@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylized Table with Job Details</title>
+    <style>
+        /* Tạo đường viền cho bảng */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        /* Định dạng cho header */
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #dddddd;
+        }
+
+        /* Tô màu background header */
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Thêm hiệu ứng hover */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Điều chỉnh độ rộng của cột */
+        td {
+            white-space: nowrap; /* Ngăn việc xuống dòng trong ô */
+        }
+
+        th, td {
+            text-align: center; /* Căn giữa nội dung trong bảng */
+        }
+
+        /* Căn chỉnh đặc biệt cho cột mô tả để nội dung không tràn */
+        .description {
+            text-align: left;
+            white-space: normal; /* Cho phép dòng mô tả xuống dòng */
+        }
+    </style>
+</head>
+<body>
+    @model List<Profiles>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>CV</th>
+                <th>Reject</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.phone</td>
+                    <td>
+                        <a href="@item.resume" style="
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 8px 12px;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        display: inline-block;
+                        ">View CV</a>
+                    </td>
+                    <td>
+                        <a style="
+                        background-color: #ff4d4d;
+                        color: white;
+                        padding: 8px 12px;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        display: inline-block;
+                        " asp-controller="Employer" asp-action="Rejected" asp-route-id="@ViewBag.JobId" asp-route-data="@item.Id">Reject</a>
+                    </td>
+                    <td>
+                        <a style="
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 8px 12px;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        display: inline-block;
+                        " asp-controller="Employer" asp-action="Approved" asp-route-id="@ViewBag.JobId" asp-route-data="@item.Id">Approved</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <!-- Thêm thẻ a Create dưới bảng -->
+    <div style="text-align: right; margin-top: 20px;">
+        <a style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            display: inline-block;
+        " asp-controller="Employer" asp-action="Postjob">
+            Create new job
+        </a>
+    </div>
+
+</body>
+</html>

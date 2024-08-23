@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylized Table with Job Details</title>
+    <style>
+        /* Tạo đường viền cho bảng */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        /* Định dạng cho header */
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #dddddd;
+        }
+
+        /* Tô màu background header */
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Thêm hiệu ứng hover */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Điều chỉnh độ rộng của cột */
+        td {
+            white-space: nowrap; /* Ngăn việc xuống dòng trong ô */
+        }
+
+        th, td {
+            text-align: center; /* Căn giữa nội dung trong bảng */
+        }
+
+        /* Căn chỉnh đặc biệt cho cột mô tả để nội dung không tràn */
+        .description {
+            text-align: left;
+            white-space: normal; /* Cho phép dòng mô tả xuống dòng */
+        }
+    </style>
+</head>
+<body>
+    @model List<JobApplications>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Date Apply</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Job.title</td>
+                    <td class="description">@item.Job.description</td>
+                    <td>@item.Job.price</td>
+                    <td>@item.date</td>
+                    <td>@item.status</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</body>
+</html>
