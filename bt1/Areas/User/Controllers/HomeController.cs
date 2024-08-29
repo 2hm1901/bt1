@@ -33,6 +33,15 @@ namespace bt1.Controllers
             List<Jobs> myList = _unitOfWork.JobsRepository.GetAll().ToList();
             return View(myList);
         }
+        [HttpPost]
+        public IActionResult Index(string search)
+        {
+            List<Jobs> myList = _unitOfWork.JobsRepository
+                .GetAll()
+                .Where(x => x.title.ToLower().Contains(search.ToLower()))
+                .ToList();
+            return View(myList);
+        }
 
         public IActionResult Privacy()
         {

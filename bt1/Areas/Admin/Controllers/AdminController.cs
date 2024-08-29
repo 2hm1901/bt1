@@ -36,5 +36,35 @@ namespace bt1.Areas.Admin.Controllers
             _unitOfWork.Save();
             return RedirectToAction("ManagerAccount");
         }
+        public IActionResult ResetPass(string? data)
+        {
+            Profiles user = _unitOfWork.ProfilesRepository.Get(u => u.Id == data);
+            return View(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPass(string id, string pass)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var resetResult = await _userManager.ResetPasswordAsync(user, resetToken, pass);
+
+            if (resetResult.Succeeded)
+            {
+                return RedirectToAction("ManagerAccount");
+            }
+
+            foreach (var error in resetResult.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }

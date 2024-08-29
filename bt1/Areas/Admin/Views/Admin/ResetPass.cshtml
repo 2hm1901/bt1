@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data Form</title>
+    <style>
+        /* Định dạng cho form */
+        form {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Định dạng cho nhãn */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        /* Định dạng cho input và textarea */
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Định dạng cho nút submit */
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Hiệu ứng hover cho nút submit */
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    @model Profiles
+    <h2 style="text-align: center;">Change password</h2>
+
+    <form method="post">
+        <label for="id">Id</label>
+        <input id="id" name="id" value="@Model.Id" readonly>
+
+        <label for="password">New Password</label>
+        <input id="pass" name="pass" type="text">
+
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
