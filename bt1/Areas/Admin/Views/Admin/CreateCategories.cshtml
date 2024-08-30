@@ -48,36 +48,25 @@
             font-size: 16px;
         }
 
-        /* Hiệu ứng hover cho nút submit */
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+            /* Hiệu ứng hover cho nút submit */
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
     </style>
 </head>
 <body>
-    @using bt1.Models.View_Model
-    @model JobVM
-    <h2 style="text-align: center;">Add New Job</h2>
+    @model Categories
+    <h2 style="text-align: center;">Add New Categories</h2>
 
     <form method="post">
-        <label for="Job.title">Title:</label>
-        <input asp-for="Job.title" type="text" placeholder="Enter job title" required>
-
-        <label for="Job.CategoriesId">Category:</label>
-        <select asp-for="Job.CategoriesId" asp-items="@Model.Categories" data-placeholder="Please Select Specialism" class="chosen">
+        <label for="Name">Name:</label>
+        <input asp-for="Name" type="text" placeholder="Name Categories" required>
+        <label for="Status">Status:</label>
+        <select asp-for="Status" data-placeholder="Please Select Specialism">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
         </select>
-
-        <label for="Job.description">Description:</label>
-        <textarea asp-for="Job.description" rows="4" placeholder="Enter job description" required></textarea>
-
-        <label for="Job.price">Price:</label>
-        <input asp-for="Job.price" type="number" placeholder="Enter price" required>
-
-        <label for="Job.date">Date Post:</label>
-        <input asp-for="Job.date" type="date" required>
-
-        <label for="Job.deadline">Deadline:</label>
-        <input asp-for="Job.deadline" type="date" required>
+        <br />
 
         <input type="submit" value="Submit">
     </form>

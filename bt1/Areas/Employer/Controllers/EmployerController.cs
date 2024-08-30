@@ -1,4 +1,5 @@
 ﻿using bt1.Models;
+using bt1.Models.View_Model;
 using bt1.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,13 +26,22 @@ namespace bt1.Areas.Employer.Controllers
         }
         public IActionResult Postjob()
         {
-            return View();
+            JobVM jobVM = new JobVM()
+            {
+                Categories = _unitOfWork.CategoriesRepository.GetAll().Where(c => c.Status == "Active").Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString(),
+                }),
+                Job = new Jobs()
+            };
+            return View(jobVM);
         }
         [HttpPost]
-        public IActionResult Postjob(Jobs job)
+        public IActionResult Postjob(JobVM jobVM)
         {
-            job.userId = _userManager.GetUserId(User);
-            _unitOfWork.JobsRepository.Add(job);
+            jobVM.Job.userId = _userManager.GetUserId(User);
+            _unitOfWork.JobsRepository.Add(jobVM.Job);
             _unitOfWork.Save();
             return RedirectToAction("ManagerJob");
         }

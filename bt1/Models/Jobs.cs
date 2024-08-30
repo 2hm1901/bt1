@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bt1.Models
 {
@@ -13,5 +14,9 @@ namespace bt1.Models
         public string price { get; set; }
         public string date { get; set; }
         public string deadline { get; set; }
+        public int CategoriesId { get; set; }
+        [ForeignKey("CategoriesId")]
+        [ValidateNever]
+        public Categories Categories { get; set; }
     }
 }

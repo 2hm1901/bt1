@@ -66,5 +66,48 @@ namespace bt1.Areas.Admin.Controllers
 
             return BadRequest(ModelState);
         }
+        //Categories
+        public IActionResult ManagerCategories()
+        {
+            List<Categories> myList = _unitOfWork.CategoriesRepository.GetAll().ToList();
+            return View(myList);
+        }
+        public IActionResult CreateCategories()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateCategories(Categories categories)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.CategoriesRepository.Add(categories);
+                _unitOfWork.Save();
+                return RedirectToAction("ManagerCategories");
+            }
+            return View(categories);
+        }
+        public IActionResult EditCategories(int id) {
+            Categories? categories = _unitOfWork.CategoriesRepository.Get(c => c.Id == id);
+            return View(categories);
+        }
+        [HttpPost]
+        public IActionResult EditCategories(Categories categories)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.CategoriesRepository.Update(categories);
+                _unitOfWork.Save();
+                return RedirectToAction("ManagerCategories");
+            }
+            return View(categories);
+        }
+
+        public IActionResult DeleteCategories(int? id) {
+            Categories? categories = _unitOfWork.CategoriesRepository.Get(c => c.Id == id);
+            _unitOfWork.CategoriesRepository.Delete(categories);
+            _unitOfWork.Save();
+            return RedirectToAction("ManagerCategories");
+        }
     }
 }

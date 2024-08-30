@@ -5,6 +5,7 @@
         IJobApplicationsRepository JobApplicationsRepository { get; }
         IJobsRepository JobsRepository { get; }
         IProfilesRepository ProfilesRepository { get; }
+        ICategoriesRepository CategoriesRepository { get; }
         void Save();
     }
 }

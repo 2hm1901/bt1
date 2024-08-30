@@ -6,6 +6,7 @@ namespace bt1.Repository
     public class UnitOfWork : IUnitOfWork
     {
         public ApplicationDBContext _dbContext;
+        public ICategoriesRepository CategoriesRepository { get; private set; }
         public IProfilesRepository ProfilesRepository { get; private set; }
         public IJobsRepository JobsRepository { get; private set; }
         public IJobApplicationsRepository JobApplicationsRepository { get; private set; }
@@ -15,6 +16,7 @@ namespace bt1.Repository
             ProfilesRepository = new ProfilesRepository(_dbContext);
             JobsRepository = new JobsRepository(_dbContext);
             JobApplicationsRepository = new JobApplicationsRepository(_dbContext);
+            CategoriesRepository = new CategoriesRepository(_dbContext);
         }
         public void Save()
         {
